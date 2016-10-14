@@ -1,3 +1,7 @@
+/*
+wavesurfer-player.js
+*/
+
 // Adjust playlist height to fit window // Especially handy for mobile
 $('.playlist').height($(window).height() - $('.playlist').offset().top - 150 ); //150 = footer height
 // Check whether the playlist is long enough to cause overflow
