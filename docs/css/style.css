@@ -1,3 +1,10 @@
+html {
+    background: url('media/wavesurfer.jpg') no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
 .music {
     border: 1px rgba(0,0,0,.25);
 }
