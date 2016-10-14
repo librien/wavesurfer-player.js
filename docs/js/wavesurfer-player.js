@@ -225,7 +225,7 @@ $(document).on("shown.bs.dropdown", ".dropdown", function () {
     // how much space is left at the bottom
     var spaceDown = $('#playlist').scrollTop() + $('#playlist').height() - (ulOffset.top + $ul.height());
     // switch to dropup only if there is no space at the bottom AND there is space at the top, or there isn't either but it would be still better fit
-    if (spaceDown < 0 && (spaceUp >= 0 || spaceUp > spaceDown))
+    if (spaceDown < 0 && (spaceUp >= 0 /*|| spaceUp > spaceDown*/))
       $(this).addClass("dropup");
 }).on("hidden.bs.dropdown", ".dropdown", function() {
     // always reset after close
