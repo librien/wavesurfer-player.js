@@ -1,0 +1,154 @@
+.music {
+    margin-top: -15px;
+    border: 1px rgba(0,0,0,.25);
+}
+.audio-control {
+    background-color: rgba(255,255,255,0.15);
+
+}
+.audio-control>div:hover {
+    cursor: pointer;
+}
+.left {
+    display: inline;
+}
+.right {
+    text-align: right;
+    position: relative;
+    float: right;
+    display: inline;
+}
+.audio-control .button {
+    display: inline-block;
+    background: none;
+    border: none;
+    padding: 15px;
+}
+.playlist { 
+    overflow-y: auto;
+}
+ul#playlist {
+    list-style: none;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    /*overflow-y: scroll;*/
+}
+ul#playlist li {
+    /*background-color: rgba(64, 170, 236, .05);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;*/
+}
+ul#playlist li:hover {
+    background-color: rgba(0,0,0,0.05);
+    cursor: pointer;
+}
+ul#playlist li .left {
+    display: inline;
+}
+ul#playlist li div .button {
+    background: none;
+    border: none;
+    padding: 15px;
+    padding-left: 30px;
+}
+ul#playlist li .middle {
+    display: inline;
+    height: 100%;
+}
+ul#playlist li .right {
+    display: inline;
+}
+#waveform {
+    position: relative;
+    background-color: rgba(0,0,0,0.05);
+}
+.play-song {
+    
+}
+.song {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 55%;
+    vertical-align: middle;
+}
+.length {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #666666; 
+    vertical-align: middle;
+}
+.song:hover {
+  
+}
+.current-time {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    color: #fff;
+    background: rgba(0, 0, 0, .35);
+    padding-left: 5px;
+    padding-right: 5px;
+    z-index: 200;
+}
+.current-song {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    color: #fff;
+    background: rgba(0, 0, 0, .35);
+    padding-left: 5px;
+    padding-right: 5px;
+    z-index: 200;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 75%;
+}
+#playlist #mute {
+    position: absolute;
+    right: 0;
+}
+.album-name {
+    margin: 10px;
+    font-family: 'Lato', sans-serif;
+    color: rgb(30, 30, 30);
+    font-size: 20px;
+}
+.right .fa-ellipsis-v {
+    padding-right: 10px;
+}
+ .volume {
+    display:none;
+    position:absolute;
+    cursor:pointer;
+    width: 200px;
+    top: 14px;
+    right: 50px;
+    height:20px;
+    background-color:rgba(0,0,0,.25);
+}
+.volumeBar {
+    display:none;
+    display:block;
+    height:20px;
+    position:absolute;
+    top:0;
+    left:0;
+    background-color:rgba(51, 122, 183, 0.35);
+    z-index:10;
+    width: 100%;
+}
+.volume3 {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 50px 100px;
+    border-color: transparent transparent #007bff transparent;
+    line-height: 0px;
+    _border-color: #000000 #000000 #007bff #000000;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
