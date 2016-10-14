@@ -81,7 +81,7 @@ ul#playlist li .right {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 55%;
+    max-width: 50%;
     vertical-align: middle;
 }
 .length {
@@ -115,7 +115,7 @@ ul#playlist li .right {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 75%;
+    max-width: 70%;
 }
 #playlist #mute {
     position: absolute;
