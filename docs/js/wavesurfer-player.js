@@ -216,7 +216,7 @@ $('.song-menu').dropdown(); //initiate bootstrap dropdown
 
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
 var dropUp = function() {
-    var windowHeight = $(window).innerHeight();
+    var windowHeight = $('#playlist').innerHeight();
     var pageScroll = $('#playlist').scrollTop();
 
     $( ".dropdown" ).each( function() {
