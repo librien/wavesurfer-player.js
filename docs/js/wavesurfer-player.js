@@ -12,6 +12,25 @@ else {
     //Reset the height, no overflow needed.
     $('.playlist').height('auto');
 }
+// Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
+var dropUp = function() {
+    var windowHeight = $('.playlist').innerHeight();
+    var pageScroll = $('.playlist').scrollTop();
+
+    $( ".dropdown" ).each( function() {
+        var offset = $( this ).offset().top;
+        var space = windowHeight - ( offset - pageScroll );
+
+        if( space < 0 ) { // the 150 needs to account for the height of the dropdown menu.
+            $( this ).addClass( "dropup" );
+        } else  {
+            $( this ).removeClass( "dropup" );
+        }
+    });
+}
+
+    $(window).load(dropUp);
+    $(window).bind('resize scroll mousewheel', dropUp);
 
 // Create a WaveSurfer instance
 var wavesurfer = Object.create(WaveSurfer);
@@ -213,26 +232,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
 });
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
-
-// Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
-var dropUp = function() {
-    var windowHeight = $('#playlist').innerHeight();
-    var pageScroll = $('#playlist').scrollTop();
-
-    $( ".dropdown" ).each( function() {
-        var offset = $( this ).offset().top;
-        var space = windowHeight - ( offset - pageScroll );
-
-        if( space < 100 ) { // the 100 needs to account for the height of the dropdown menu.
-            $( this ).addClass( "dropup" );
-        } else  {
-            $( this ).removeClass( "dropup" );
-        }
-    });
-}
-
-    $(window).load(dropUp);
-    $(window).bind('resize scroll mousewheel', dropUp);
 
 $('#playlist li .right').click(function() {
     event.stopImmediatePropagation(); //prevents songs from playing when clicking on right menu icon (not an ideal solution but it works)
