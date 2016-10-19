@@ -22,7 +22,7 @@ $(document).on("shown.bs.dropdown", ".dropdown", function () {
     // how much space would be left on the top if the dropdown opened that direction
     var spaceUp = (ulOffset.top - $button.height() - $ul.height()) - $('#playlist').scrollTop();
     // how much space is left at the bottom
-    var spaceDown = $('#playlist').scrollTop() + $('#playlist').height() - (ulOffset.top + $ul.height());
+    var spaceDown = $('#playlist').scrollTop() + $('#playlist').height() - ((ulOffset.top + 10) + $ul.height());
     // switch to dropup only if there is no space at the bottom AND there is space at the top, or there isn't either but it would be still better fit
     if (spaceDown < 0 && (spaceUp >= 150 || spaceUp > spaceDown))
       $(this).addClass("dropup");
