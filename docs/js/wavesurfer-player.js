@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setCurrentSong(currentTrack);
     
 });
-$('.song-menu').dropdown(); //initiate bootstrap dropdown
+//$('.song-menu').dropdown(); //initiate bootstrap dropdown
 
 $('#playlist li .right').click(function() {
     event.stopImmediatePropagation(); //prevents songs from playing when clicking on right menu icon (not an ideal solution but it works)
