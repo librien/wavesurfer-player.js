@@ -12,6 +12,7 @@ else {
     //Reset the height, no overflow needed.
     $('.playlist').height('auto');
 }
+$('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
 $(document).on("shown.bs.dropdown", ".dropdown", function () {
     // calculate the required sizes, spaces
@@ -229,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
     setCurrentSong(currentTrack);
     
 });
-//$('.song-menu').dropdown(); //initiate bootstrap dropdown
 
 $('#playlist li .right').click(function() {
     event.stopImmediatePropagation(); //prevents songs from playing when clicking on right menu icon (not an ideal solution but it works)
