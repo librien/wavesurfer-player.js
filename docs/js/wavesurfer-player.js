@@ -6,7 +6,6 @@ $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
 
 $(".song-menu").click(function(){
- console.log('running');
  var dropdownClassCheck = $(this).parent().hasClass('dropdown');
  var buttonOffset = $(this).offset().top;
  var scrollboxOffset = $('#playlistContainer').offset().top;
@@ -16,11 +15,10 @@ $(".song-menu").click(function(){
  dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight; 
  if(dropdownClassCheck && !dropdownSpaceCheck){
   $(this).parent().removeClass('dropdown').addClass('dropup');
-  console.log('should drop up');
+  console.log(dropDownButtonHeight);
  }
  else if(!dropdownClassCheck && dropdownSpaceCheck){
-        $(this).parent().removeClass('dropup').addClass('dropdown');
-  console.log('should drop down');
+  $(this).parent().removeClass('dropup').addClass('dropdown');
  }
 });
 // Adjust playlist height to fit window // Especially handy for mobile
