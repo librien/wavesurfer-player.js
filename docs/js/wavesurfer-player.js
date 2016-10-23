@@ -5,7 +5,7 @@ wavesurfer-player.js 2016
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
 
-$(".song-menu").click(function(){
+/*$(".song-menu").click(function(){
  var dropdownClassCheck = $(this).parent().hasClass('dropdown');
  var buttonOffset = $(this).offset().top;
  var scrollboxOffset = $('#playlistContainer').offset().top;
@@ -19,6 +19,42 @@ $(".song-menu").click(function(){
  else if(!dropdownClassCheck && dropdownSpaceCheck){
   $(this).parent().removeClass('dropup').addClass('dropdown');
  }
+});*/
+function checkHeights() {
+  // LOOP through each dropdown
+  $('.dropdown,.dropup').each(function(index, element) {
+    var $dropDown = $(element),
+      $dropDownMenu = $dropDown.find('.dropdown-menu'),
+      dropDownTop = $dropDown.offset().top,
+      visibleHeight = $dropDown.height(),
+      hiddenHeight = $dropDownMenu.height(),
+      ddTop = dropDownTop - hiddenHeight,
+      ddBottom = dropDownTop + visibleHeight + hiddenHeight;
+
+    // LOOP through all parents
+    $dropDown.parents().each(function(ix, el) {
+      var $el = $(el);
+
+      // CHECK if any of them have overflow property set
+      if ($el.css('overflow') !== 'visible') {
+        var limitTop = $el.offset().top,
+          limitBottom = limitTop + $el.height();
+
+        // CHECK if parent is better fit when dropped upside
+        if (limitBottom < ddBottom && (ddTop - limitTop) > (limitBottom - ddBottom))
+          $dropDown.removeClass('dropdown').addClass('dropup');
+        else
+        	$dropDown.removeClass('dropup').addClass('dropdown');
+
+        // BREAK LOOP
+        return false;
+      }
+    });
+  });
+}
+$(document).ready(function() {
+  checkHeights();
+  $('.playlist').scroll(checkHeights);
 });
 // Adjust playlist height to fit window // Especially handy for mobile
 $('#playlistContainer').height($(window).height() - $('.playlist').offset().top - 150 ); // 150 = footer height
