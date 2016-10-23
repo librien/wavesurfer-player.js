@@ -14,32 +14,20 @@ else {
 }
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
-$('.dropdown').each(function(index,element){
-    var $dropDown = $(element),
-        $dropDownMenu = $dropDown.find('.dropdown-menu'),
-        dropDownTop = $dropDown.offset().top,
-        visibleHeight = $dropDown.height(),
-        hiddenHeight = $dropDownMenu.height(),
-        ddTop = dropDownTop - hiddenHeight,
-        ddBottom = dropDownTop + visibleHeight + hiddenHeight;
-
-  // LOOP through all parents
-  $dropDown.parents().each(function(ix,el){
-    var $el = $(el);
-
-    // CHECK if any of them have overflow property set
-    if( $el.css('overflow') !== 'visible' ){
-        var limitTop = $el.offset().top,
-            limitBottom = limitTop + $el.height();
-
-      // CHECK if parent is better fit when dropped upside
-      if( limitBottom < ddBottom && ( ddTop - limitTop ) > ( limitBottom - ddBottom ) )
-        $dropDown.removeClass('dropdown').addClass('dropup');
-
-      // BREAK LOOP
-      return false;
-    }
-  });
+$(".dropdown, .dropup").click(function(){
+ var dropdownClassCheck = $(this).hasClass('dropdown');
+ var buttonOffset = $(this).offset().top;
+ var scrollboxOffset = $('.playlist').offset().top;
+ var buttonHeight = $(this).height();
+ var scrollBoxHeight = $('.playlist').height();
+ var dropDownButtonHeight = $(this).children('ul').height();
+ dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight; 
+ if(dropdownClassCheck && !dropdownSpaceCheck){
+  $(this).removeClass('dropdown').addClass('dropup');
+ }
+ else if(!dropdownClassCheck && dropdownSpaceCheck){
+        $(this).removeClass('dropup').addClass('dropdown');
+ }
 });
 
 // Create a WaveSurfer instance
