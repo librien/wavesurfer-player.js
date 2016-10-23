@@ -7,9 +7,9 @@ $('.song-menu').dropdown(); //initiate bootstrap dropdown
 $(".dropdown").click(function(){
  var dropdownClassCheck = $(this).hasClass('dropdown');
  var buttonOffset = $(this).offset().top;
- var scrollboxOffset = $('.playlist').offset().top;
+ var scrollboxOffset = $('#playlistContainer').offset().top;
  var buttonHeight = $(this).height();
- var scrollBoxHeight = $('.playlist').height();
+ var scrollBoxHeight = $('#playlistContainer').height();
  var dropDownButtonHeight = $(this).children('ul').height();
  dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight; 
  if(dropdownClassCheck && !dropdownSpaceCheck){
@@ -20,14 +20,14 @@ $(".dropdown").click(function(){
  }
 });
 // Adjust playlist height to fit window // Especially handy for mobile
-$('.playlist').height($(window).height() - $('.playlist').offset().top - 150 ); // 150 = footer height
+$('#playlistContainer').height($(window).height() - $('.playlist').offset().top - 150 ); // 150 = footer height
 // Check whether the playlist is long enough to cause overflow
-if ($(".playlist").prop('scrollHeight') > $(".playlist").height() ) {
+if ($("#playlistContainer").prop('scrollHeight') > $(".playlist").height() ) {
     // Do nothing
 }
 else {
     //Reset the height, no overflow needed.
-    $('.playlist').height('auto');
+    $('#playlistContainer').height('auto');
 }
 
 // Create a WaveSurfer instance
