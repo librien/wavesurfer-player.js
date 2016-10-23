@@ -5,6 +5,7 @@ wavesurfer-player.js
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
 $(".dropdown").click(function(){
+ console.log('running');
  var dropdownClassCheck = $(this).hasClass('dropdown');
  var buttonOffset = $(this).offset().top;
  var scrollboxOffset = $('#playlistContainer').offset().top;
@@ -14,9 +15,11 @@ $(".dropdown").click(function(){
  dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight; 
  if(dropdownClassCheck && !dropdownSpaceCheck){
   $(this).removeClass('dropdown').addClass('dropup');
+  console.log('should drop up');
  }
  else if(!dropdownClassCheck && dropdownSpaceCheck){
         $(this).removeClass('dropup').addClass('dropdown');
+  console.log('should drop down');
  }
 });
 // Adjust playlist height to fit window // Especially handy for mobile
