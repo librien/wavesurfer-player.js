@@ -1,5 +1,5 @@
 /*
-wavesurfer-player.js
+wavesurfer-player.js 2016
 */
 
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
