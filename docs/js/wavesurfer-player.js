@@ -2,16 +2,6 @@
 wavesurfer-player.js
 */
 
-// Adjust playlist height to fit window // Especially handy for mobile
-$('.playlist').height($(window).height() - $('.playlist').offset().top - 150 ); // 150 = footer height
-// Check whether the playlist is long enough to cause overflow
-if ($(".playlist").prop('scrollHeight') > $(".playlist").height() ) {
-    // Do nothing
-}
-else {
-    //Reset the height, no overflow needed.
-    $('.playlist').height('auto');
-}
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
 $(".dropdown").click(function(){
@@ -29,6 +19,16 @@ $(".dropdown").click(function(){
         $(this).removeClass('dropup').addClass('dropdown');
  }
 });
+// Adjust playlist height to fit window // Especially handy for mobile
+$('.playlist').height($(window).height() - $('.playlist').offset().top - 150 ); // 150 = footer height
+// Check whether the playlist is long enough to cause overflow
+if ($(".playlist").prop('scrollHeight') > $(".playlist").height() ) {
+    // Do nothing
+}
+else {
+    //Reset the height, no overflow needed.
+    $('.playlist').height('auto');
+}
 
 // Create a WaveSurfer instance
 var wavesurfer = Object.create(WaveSurfer);
