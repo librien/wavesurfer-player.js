@@ -4,6 +4,9 @@ wavesurfer-player.js
 
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
+$('.song-menu').click(function(){
+ console.log('clicked');
+});
 $(".dropdown").click(function(){
  console.log('running');
  var dropdownClassCheck = $(this).hasClass('dropdown');
