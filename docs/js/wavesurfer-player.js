@@ -7,19 +7,19 @@ $('.song-menu').dropdown(); //initiate bootstrap dropdown
 
 $(".song-menu").click(function(){
  console.log('running');
- var dropdownClassCheck = $(this).hasClass('dropdown');
+ var dropdownClassCheck = $(this).parent().hasClass('dropdown');
  var buttonOffset = $(this).offset().top;
  var scrollboxOffset = $('#playlistContainer').offset().top;
  var buttonHeight = $(this).height();
  var scrollBoxHeight = $('#playlistContainer').height();
- var dropDownButtonHeight = $(this).children('ul').height();
+ var dropDownButtonHeight = $(this).sibling('ul').height();
  dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight; 
  if(dropdownClassCheck && !dropdownSpaceCheck){
-  $(this).removeClass('dropdown').addClass('dropup');
+  $(this).parent().removeClass('dropdown').addClass('dropup');
   console.log('should drop up');
  }
  else if(!dropdownClassCheck && dropdownSpaceCheck){
-        $(this).removeClass('dropup').addClass('dropdown');
+        $(this).parent().removeClass('dropup').addClass('dropdown');
   console.log('should drop down');
  }
 });
