@@ -12,7 +12,7 @@ $(".song-menu").click(function(){
  var buttonHeight = $(this).height();
  var scrollBoxHeight = $('#playlistContainer').height();
  var dropDownButtonHeight = $(this).siblings('ul').height();
- dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight; 
+ dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight+50; 
  if(dropdownClassCheck && !dropdownSpaceCheck){
   $(this).parent().removeClass('dropdown').addClass('dropup');
   console.log(dropDownButtonHeight);
