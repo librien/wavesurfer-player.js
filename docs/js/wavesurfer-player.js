@@ -14,7 +14,7 @@ else {
 }
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
-$(".dropdown, .dropup").click(function(){
+$(".song-menu").click(function(){
  var dropdownClassCheck = $(this).hasClass('dropdown');
  var buttonOffset = $(this).offset().top;
  var scrollboxOffset = $('.playlist').offset().top;
