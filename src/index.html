@@ -14,8 +14,11 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>        
-        <div class="container-fluid">    
+        <a href="https://github.com/kmodoio/wavesurfer-player.js/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+        <div class="container">    
             <div class="main-body">
+                <h1>wavesurfer-player.js</h1>
+                <p>wavesurfer-player.js is an HTML5 / Bootstrap / Javascript and jQuery audio player and playlist using https://wavesurfer-js.org waveform visualization.</p>
                 <div class="row main-content col-center-block music">
                     <div class="col-sm-12 col-center-block">
                         <div class="row">
@@ -51,19 +54,18 @@
                                 <div class="volume" title="Set volume">	<span class="volumeBar"></span></div>
                             </div>
                         </div>
-                        <div class="row playlist">
+                        <div id="playlistContainer" class="row playlist">
                             <div class="row center album-name">
-                                Scotia Major
-                                <hr class="double"/>
+                                Optional Album Name
                             </div>
                             <ul class="list-group" id="playlist">
-                                <li data-src="static/music/alwayssomethingelse.mp3" class="song-row">
+                                <li data-src="media/song.mp3" class="song-row">
                                     <div class="left">
                                         <i class="fa fa-play play-song button" aria-hidden="true"></i>              
                                     </div>
                                     <div class="middle">
-                                        <span class="song">Always Something Else</span>
-                                        <span class="length">1:50</span>
+                                        <span class="song">Artist - Title</span>
+                                        <span class="length">0:00</span>
                                     </div>
                                     <div class="right">
                                         <div class="dropdown">
@@ -75,167 +77,6 @@
                                         </div>
                                     </div>
                                 </li>                    
-                                <li data-src="static/music/reversethis.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">              
-                                        <span class="song">Reverse This! (Expletive)</span>
-                                        <span class="length">2:16</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>                   
-                                <li data-src="static/music/smashed.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">             
-                                        <span class="song">Smashed</span>
-                                        <span class="length">3:17</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="static/music/wellthree.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">            
-                                        <span class="song">Well, Three</span>
-                                        <span class="length">2:14</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="static/music/quintonlights.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">             
-                                        <span class="song">Quinton Lights</span>
-                                        <span class="length">3:27</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="static/music/touchofred.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">             
-                                        <span class="song">Touch of Red</span>
-                                        <span class="length">2:11</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="static/music/paradroit.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">          
-                                        <span class="song">Paradroit</span>
-                                        <span class="length">3:21</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="static/music/happymediums.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">            
-                                        <span class="song">Happy Mediums</span>
-                                        <span class="length">2:53</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="static/music/hesonlyhuman.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">             
-                                        <span class="song">He's Only Human</span>
-                                        <span class="length">3:16</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="static/music/weknewthiswascoming.mp3" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">          
-                                        <span class="song">We Knew This Was Coming (Clear Conscience)</span><span class="length">5:33</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -243,7 +84,7 @@
             </div>
         </div>
     </body>
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
     <script src="js/jquery.hoverIntent.minified.js"></script>
