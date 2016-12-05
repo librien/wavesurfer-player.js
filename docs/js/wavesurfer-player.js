@@ -5,21 +5,6 @@ wavesurfer-player.js 2016
 $('.song-menu').dropdown(); //initiate bootstrap dropdown
 // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
 
-/*$(".song-menu").click(function(){
- var dropdownClassCheck = $(this).parent().hasClass('dropdown');
- var buttonOffset = $(this).offset().top;
- var scrollboxOffset = $('#playlistContainer').offset().top;
- var buttonHeight = $(this).height();
- var scrollBoxHeight = $('#playlistContainer').height();
- var dropDownButtonHeight = $(this).siblings('ul').height() + 25;
- dropdownSpaceCheck = scrollBoxHeight>buttonOffset-scrollboxOffset+buttonHeight+dropDownButtonHeight; 
- if(dropdownClassCheck && !dropdownSpaceCheck){
-  $(this).parent().removeClass('dropdown').addClass('dropup');
- }
- else if(!dropdownClassCheck && dropdownSpaceCheck){
-  $(this).parent().removeClass('dropup').addClass('dropdown');
- }
-});*/
 function checkHeights() {
   // LOOP through each dropdown
   $('.dropdown,.dropup').each(function(index, element) {
@@ -92,12 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
     wavesurfer.setVolume(1); //100% volume to start
 
     currentTitle = document.title; //Get the page's current title, will append audio information to it
-    
+
     var playPause = $('#playPause');
     $('#playPause').click(function() {
         wavesurfer.playPause();
-    });    
-    
+    });
+
     // Displays seconds.miliseconds in 00:00 format
     function getTimeString(totalSeconds) {
         function timeToString(num) {
@@ -122,13 +107,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return currentTimeString;
     }
-    
+
     // Sets the elapsed time for current song
     function updateCurrentTime() {
         elapsedSeconds++;
         $('.current-time').text(getTimeString(elapsedSeconds));
     }
-    
+
     // Resets the elapsed time for current song
     function clearTimer() {
         clearInterval(currentTime);
@@ -149,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Set title to include current song name
         title = (titles[currentTrack].innerHTML) + ' \u2013 ' + currentTitle;
         document.title = title;
-        
+
         if (wavesurfer.isPlaying() == true) {
             clearTimer(); //ensure timer resets to 0
             // Start timer for this song
@@ -161,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Error setting time?');
         }
     });
-    
+
     wavesurfer.on('pause', function () {
         // Replace play / pause icons
         $('#play').show();
@@ -201,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-    
+
     // Play / Pause current track with play button in playlist, or play different track
     $('.play-song').click(function() {
         event.stopImmediatePropagation();
@@ -219,23 +204,23 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
-    
+
     // Go to the next track on finish
     wavesurfer.on('finish', function () {
         setCurrentSong((currentTrack + 1) % songs.length);
         wavesurfer.on('ready', function () {
             wavesurfer.play();
         });
-    }); 
+    });
     wavesurfer.on('seek', function () {
         elapsedSeconds = wavesurfer.getCurrentTime();
     });
-    
-    // Go to next track when next button is clicked 
+
+    // Go to next track when next button is clicked
     $("#next").click(function() {
         setCurrentSong((currentTrack + 1) % songs.length);
-    }); 
-    
+    });
+
     // Go to previous track when previous button is clicked
     $("#previous").click(function() {
         // Go to previous track
@@ -246,8 +231,8 @@ document.addEventListener('DOMContentLoaded', function () {
         else {
             setCurrentSong(songs.length - 1);
         }
-    }); 
-    
+    });
+
     // Stop on click
     $("#stop").click(function() {
         wavesurfer.stop();
@@ -255,8 +240,8 @@ document.addEventListener('DOMContentLoaded', function () {
         $('.play-song').addClass('fa-play').removeClass('fa-pause');
         title = 'Stopped \u2013 ' + currentTitle;
         document.title = title;
-    });    
-    
+    });
+
     // Toggle mute on click
     $("#mute").click(function() {
         mute();
@@ -264,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Load the first track
     setCurrentSong(currentTrack);
-    
+
 });
 
 $('#playlist li .right').click(function() {
@@ -288,7 +273,7 @@ function mute() {
     else {
         wavesurfer.toggleMute();
         muted = false;
-        percentage = oldpercentage; 
+        percentage = oldpercentage;
         if ((percentage < 70) && (percentage > 0)) {
             $('#mute i').removeClass('fa-volume-off').removeClass('fa-volume-up').addClass('fa-volume-down');
         } else {
@@ -308,13 +293,13 @@ $('.audio-control .right').on('mousedown', function(){
 
 function showVolume(){
     $('.volume').fadeIn();
-    $('.volumeBar').fadeIn();        
+    $('.volumeBar').fadeIn();
 }
 
 function hideVolume(){
     if (isDown == false) {
         $('.volume').fadeOut();
-        $('.volumeBar').fadeOut();        
+        $('.volumeBar').fadeOut();
     }
 }
 
@@ -327,6 +312,26 @@ $('.audio-control .right').on('touchstart', function(e) {
     e.stopPropagation();
     mute();
 });
+
+// Listen for scroll, call to adjust volume up or down
+$(function() {
+    $('.audio-control .right').bind('wheel DOMMouseScroll', function (event) {
+         if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+             scrollVolume(5);
+         }
+         else {
+             scrollVolume(-5);
+         }
+         return false; // prevent page from scrolling
+    });
+});
+
+function scrollVolume(amount) {
+    percentage = percentage + amount;
+    if (percentage > 100) percentage = 100;
+    if (percentage < 0) percentage = 0;
+    setVolume(percentage);
+}
 
 var volumeDrag = false;
 $('.volume').on('mousedown', function (e) {
@@ -351,26 +356,27 @@ $(document).on('mousemove', function (e) {
 
 var updateVolume = function (x, vol) {
     var volume = $('.volume');
-    
     if (vol) {
         percentage = vol * 100;
     } else {
         var position = x - volume.offset().left;
         percentage = 100 * position / volume.width();
     }
-
     if (percentage > 100) {
         percentage = 100;
     }
     if (percentage < 0) {
         percentage = 0;
     }
+    setVolume(percentage);
+}
 
+function setVolume(percentage) {
     // Update volume bar css and player volume
     $('.volumeBar').css('width', percentage + '%');
     wavesurfer.setVolume(percentage / 100);
 
-    // Change sound icon based on volume 
+    // Change sound icon based on volume
     if (percentage == 0) {
         $('#mute i').removeClass('fa-volume-up').removeClass('fa-volume-down').addClass('fa-volume-off');
     } else if ((percentage < 70) && (percentage > 0)) {
@@ -378,5 +384,4 @@ var updateVolume = function (x, vol) {
     } else {
         $('#mute i').removeClass('fa-volume-off').removeClass('fa-volume-down').addClass('fa-volume-up');
     }
-
-};
+}
