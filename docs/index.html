@@ -1,200 +1,265 @@
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>wavesurfer-player.js</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" rel="stylesheet"1>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-        <link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>        
-        <a href="https://github.com/kmodoio/wavesurfer-player.js/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
-        <div class="container">    
-            <div class="main-body">
-                <h1>wavesurfer-player.js</h1>
-                <p>wavesurfer-player.js is an HTML5 / Bootstrap / Javascript and jQuery audio player and playlist using https://wavesurfer-js.org waveform visualization.</p>
-                <div class="row main-content col-center-block music">
-                    <div class="col-sm-12 col-center-block">
-                        <div class="row">
-                            <div id="waveform">
-                                <div class="current-song">Stopped</div>
-                                <div class="current-time">00:00</div>
-                            </div>
-                        </div>
-                        <div class="row audio-control">
-                            <div class="left">
-                                <div id="previous" class="button">
-                                    <i class="fa fa-lg fa-fast-backward fa-fw" aria-hidden="true"></i>
-                                </div>
-                                <div id="playPause" class="button">
-                                    <div id="play">
-                                        <i class="fa fa-lg fa-play fa-fw" aria-hidden="true"></i>
-                                    </div>
-                                    <div id="pause" style="display: none;">
-                                        <i class="fa fa-lg fa-pause fa-fw" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                                <div id="stop" class="button">
-                                    <i class="fa fa-lg fa-stop fa-fw" aria-hidden="true"></i>
-                                </div>
-                                <div id="next" class="button">
-                                    <i class="fa fa-lg fa-fast-forward fa-fw" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div id="mute" class="button">
-                                    <i class="fa fa-lg fa-volume-up fa-fw" aria-hidden="true"></i>
-                                </div>
-                                <div class="volume" title="Set volume">	<span class="volumeBar"></span></div>
-                            </div>
-                        </div>
-                        <div id="playlistContainer" class="row playlist">
-                            <div class="row center album-name">
-                                Demo songs from SampleSwap.org
-                            </div>
-                            <ul class="list-group" id="playlist">
-                                <li data-src="media/Aura-Distorter_Sleep-Scape-160.mp3" data-title="Aura Distorter - Sleep Scape" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>              
-                                    </div>
-                                    <div class="middle">
-                                        <span class="song">Aura Distorter - Sleep Scape</span>
-                                        <span class="length">4:30</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>                    
-                                <li data-src="media/canton_Benbient-160.mp3" data-title="Canton - Benbient" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">              
-                                        <span class="song">Canton - Benbient</span>
-                                        <span class="length">7:42</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>                   
-                                <li data-src="media/Chameleon-Dream_Awakening-160.mp3" data-title="Chameleon - Dream Awakening" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">             
-                                        <span class="song">Chameleon - Dream Awakening</span>
-                                        <span class="length">3:32</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="media/heraclyde_mysterious-georges-160.mp3" data-title="Heraclyde - Mysterious Georges" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">            
-                                        <span class="song">Heraclyde - Mysterious Georges</span>
-                                        <span class="length">3:14</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="media/palomo_sous-la-peau-160.mp3" data-title="Palomo - Sous la Peau" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">             
-                                        <span class="song">Palomo - Sous la Peau</span>
-                                        <span class="length">2:19</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="media/Peppy-The-Firing-Squad-160.mp3" data-title="Peppy - The Firing Squad" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">             
-                                        <span class="song">Peppy - The Firing Squad</span>
-                                        <span class="length">3:22</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-src="media/Thrystero_Diagonal-160.mp3" data-title="Thrystero - Diagonal" class="song-row">
-                                    <div class="left">
-                                        <i class="fa fa-play play-song button" aria-hidden="true"></i>               
-                                    </div>
-                                    <div class="middle">          
-                                        <span class="song">Thrystero - Diagonal</span>
-                                        <span class="length">4:05</span>
-                                    </div>
-                                    <div class="right">
-                                        <div class="dropdown">
-                                            <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
-                                                <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>wavesurfer-player.js</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" rel="stylesheet"1>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <a href="https://github.com/kmodoio/wavesurfer-player.js/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+    <div class="container">
+      <div class="main-body">
+        <h1>wavesurfer-player.js</h1>
+        <p>wavesurfer-player.js is an HTML5 / Bootstrap / Javascript and jQuery audio player and playlist using https://wavesurfer-js.org waveform visualization.</p>
+        <div class="row main-content col-center-block music">
+          <div class="col-sm-12 col-center-block">
+            <div class="row">
+              <div id="waveform">
+                <div class="current-song">Stopped</div>
+                <div class="current-time">00:00</div>
+              </div>
             </div>
+            <div class="row audio-control">
+              <div class="left">
+                <div id="previous" class="button">
+                  <i class="fa fa-lg fa-fast-backward fa-fw" aria-hidden="true" title="Previous Song"></i>
+                </div>
+                <div id="playPause" class="button">
+                  <div id="play">
+                    <i class="fa fa-lg fa-play fa-fw" aria-hidden="true" title="Play"></i>
+                  </div>
+                  <div id="pause" style="display: none;">
+                    <i class="fa fa-lg fa-pause fa-fw" aria-hidden="true" title="Pause"></i>
+                  </div>
+                </div>
+                <div id="stop" class="button">
+                  <i class="fa fa-lg fa-stop fa-fw" aria-hidden="true" title="Stop"></i>
+                </div>
+                <div id="next" class="button">
+                  <i class="fa fa-lg fa-fast-forward fa-fw" aria-hidden="true" title="Next Song"></i>
+                </div>
+                <div id="repeat" class="button">
+                  <i class="fa fa-lg fa-repeat fa-fw" aria-hidden="true" title="Toggle Repeat"></i>
+                </div>
+                <div id="shuffle" class="button">
+                  <i class="fa fa-lg fa-random fa-fw" aria-hidden="true" title="Toggle Shuffle"></i>
+                </div>
+              </div>
+              <div class="right">
+                <div id="mute" class="button">
+                  <i class="fa fa-lg fa-volume-up fa-fw" aria-hidden="true"></i>
+                </div>
+                <div class="volume" title="Set volume">	<span class="volumeBar"></span></div>
+              </div>
+            </div>
+            <div id="playlistContainer" class="row playlist">
+              <div class="row center album-name">
+                Demo songs from SampleSwap.org
+              </div>
+              <ul class="list-group" id="playlist">
+                <li data-src="media/Aura-Distorter_Sleep-Scape-160.mp3" data-title="Aura Distorter - Sleep Scape" class="song-row">
+                  <div class="left">
+                    <i class="fa fa-play play-song button" aria-hidden="true"></i>              
+                  </div>
+                  <div class="middle">
+                    <span class="song">Aura Distorter - Sleep Scape</span>
+                    <span class="length">4:30</span>
+                  </div>
+                  <div class="right">
+                    <div class="dropdown">
+                      <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
+                      <ul class="dropdown-menu pull-right">
+                        <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li data-src="media/canton_Benbient-160.mp3" data-title="Canton - Benbient" class="song-row">
+                  <div class="left">
+                    <i class="fa fa-play play-song button" aria-hidden="true"></i>               
+                  </div>
+                  <div class="middle">              
+                    <span class="song">Canton - Benbient</span>
+                    <span class="length">7:42</span>
+                  </div>
+                  <div class="right">
+                    <div class="dropdown">
+                      <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
+                      <ul class="dropdown-menu pull-right">
+                        <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li data-src="media/Chameleon-Dream_Awakening-160.mp3" data-title="Chameleon - Dream Awakening" class="song-row">
+                  <div class="left">
+                    <i class="fa fa-play play-song button" aria-hidden="true"></i>               
+                  </div>
+                  <div class="middle">             
+                    <span class="song">Chameleon - Dream Awakening</span>
+                    <span class="length">3:32</span>
+                  </div>
+                  <div class="right">
+                    <div class="dropdown">
+                      <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
+                      <ul class="dropdown-menu pull-right">
+                        <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li data-src="media/heraclyde_mysterious-georges-160.mp3" data-title="Heraclyde - Mysterious Georges" class="song-row">
+                  <div class="left">
+                    <i class="fa fa-play play-song button" aria-hidden="true"></i>               
+                  </div>
+                  <div class="middle">            
+                    <span class="song">Heraclyde - Mysterious Georges</span>
+                    <span class="length">3:14</span>
+                  </div>
+                  <div class="right">
+                    <div class="dropdown">
+                      <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
+                      <ul class="dropdown-menu pull-right">
+                        <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li data-src="media/palomo_sous-la-peau-160.mp3" data-title="Palomo - Sous la Peau" class="song-row">
+                  <div class="left">
+                    <i class="fa fa-play play-song button" aria-hidden="true"></i>               
+                  </div>
+                  <div class="middle">             
+                    <span class="song">Palomo - Sous la Peau</span>
+                    <span class="length">2:19</span>
+                  </div>
+                  <div class="right">
+                    <div class="dropdown">
+                      <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
+                      <ul class="dropdown-menu pull-right">
+                        <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li data-src="media/Peppy-The-Firing-Squad-160.mp3" data-title="Peppy - The Firing Squad" class="song-row">
+                  <div class="left">
+                    <i class="fa fa-play play-song button" aria-hidden="true"></i>               
+                  </div>
+                  <div class="middle">             
+                    <span class="song">Peppy - The Firing Squad</span>
+                    <span class="length">3:22</span>
+                  </div>
+                  <div class="right">
+                    <div class="dropdown">
+                      <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
+                      <ul class="dropdown-menu pull-right">
+                        <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li data-src="media/Thrystero_Diagonal-160.mp3" data-title="Thrystero - Diagonal" class="song-row">
+                  <div class="left">
+                    <i class="fa fa-play play-song button" aria-hidden="true"></i>               
+                  </div>
+                  <div class="middle">          
+                    <span class="song">Thrystero - Diagonal</span>
+                    <span class="length">4:05</span>
+                  </div>
+                  <div class="right">
+                    <div class="dropdown">
+                      <i class="fa fa-lg fa-ellipsis-v button song-menu" aria-hidden="true" data-toggle="dropdown"></i>
+                      <ul class="dropdown-menu pull-right">
+                        <li><a href="#"><i class="fa fa-fw fa-download" aria-hidden="true"></i> Download</a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-share" aria-hidden="true"></i> Share</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </body>
-    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
-    <script src="js/jquery.hoverIntent.minified.js"></script>
-    <script src="js/wavesurfer-player.js"></script>
+      </div>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
+  <script src="js/jquery.hoverIntent.minified.js"></script>
+  <script src="js/wavesurfer-player.js"></script>
+  <script>
+    //initiate bootstrap dropdown
+    $('.song-menu').dropdown();
+    
+    // Replace .dropdown with .dropup if at the bottom of the scrollable area in .playlist div
+    function checkHeights() {
+      // LOOP through each dropdown
+      $('.dropdown,.dropup').each(function(index, element) {
+      var $dropDown = $(element),
+        $dropDownMenu = $dropDown.find('.dropdown-menu'),
+        dropDownTop = $dropDown.offset().top,
+        visibleHeight = $dropDown.height(),
+        hiddenHeight = $dropDownMenu.height(),
+        ddTop = dropDownTop - hiddenHeight,
+        ddBottom = dropDownTop + visibleHeight + hiddenHeight;
+    
+      // LOOP through all parents
+      $dropDown.parents().each(function(ix, el) {
+        var $el = $(el);
+    
+        // CHECK if any of them have overflow property set
+        if ($el.css('overflow') !== 'visible') {
+        var limitTop = $el.offset().top,
+          limitBottom = limitTop + $el.height();
+    
+        // CHECK if parent is better fit when dropped upside
+        if (limitBottom < ddBottom && (ddTop - limitTop) > (limitBottom - ddBottom))
+          $dropDown.removeClass('dropdown').addClass('dropup');
+        else
+          $dropDown.removeClass('dropup').addClass('dropdown');
+    
+        // BREAK LOOP
+        return false;
+        }
+      });
+      });
+    }
+    
+    // Sets playlist height depending on window size.  Keeps audio controls in view when scrolling through playlist
+    $(document).ready(function() {
+      checkHeights();
+      $('.playlist').scroll(checkHeights);
+      // Adjust playlist height to fit window // Especially handy for mobile
+      $('.playlist').height($(window).height() - $('.playlist').offset().top - 25); // 150 = footer height
+      // Check whether the playlist is long enough to cause overflow
+      if ($(".playlist").prop('scrollHeight') > $(".playlist").height() ) {
+        // Do nothing
+      }
+      else {
+        //Reset the height, no overflow needed.
+        $('.playlist').height('auto');
+      }
+    });
+    
+    $('#playlist li .right').click(function() {
+      event.stopImmediatePropagation(); //prevents songs from playing when clicking on right menu icon (not an ideal solution but it works)
+      event.preventDefault();
+    });
+  </script>
 </html>
