@@ -177,8 +177,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   $("#play").click( function() {
-
-    // Play when audio-control play button is clicked
     playNow();
   });
 
