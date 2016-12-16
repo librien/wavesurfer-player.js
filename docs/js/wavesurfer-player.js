@@ -41,6 +41,15 @@ document.addEventListener('DOMContentLoaded', function () {
     wavesurfer.playPause();
   });
 
+  // Pause / resume playback with spacebar
+  window.onkeydown = function(e) {
+    if(e.keyCode == 32 && e.target == document.body) {
+        wavesurfer.playPause();
+        e.preventDefault();
+        return false;
+    }
+};
+
   function getCurrentTrackIndex(currentTitle) {
     songIndex = Array.from(songs).findIndex(item => item.dataset.title === currentTitle);
     return songIndex;
@@ -176,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
     clearInterval(currentTime);
   });
 
-  $("#play").click( function() {
+  $("#play").click(function() {
     playNow();
   });
 
@@ -245,19 +254,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Go to previous track when previous button is clicked
   $("#previous").click(function() {
-    if (currentTrack > 0) {
-      setCurrentSong((currentTrack - 1) % songs.length);
-    }
+    if (elapsedSeconds < 1) {
+      if (currentTrack > 0) {
+        setCurrentSong((currentTrack - 1) % songs.length);
+      }
 
-    // Loop back to last song in playlist
-    else {
-      if (isRepeat) {
-        setCurrentSong(songs.length - 1);
-      }
+      // Loop back to last song in playlist
       else {
-        // Do nothing, reached end of playlist
+        if (isRepeat) {
+          setCurrentSong(songs.length - 1);
+        }
+        else {
+          // Do nothing, reached end of playlist
+        }
       }
     }
+    else setCurrentSong(currentTrack);
   });
 
   // Stop on click
@@ -298,6 +310,7 @@ function mute() {
     wavesurfer.toggleMute();
     muted = false;
     percentage = oldpercentage;
+
     if ((percentage < 70) && (percentage > 0)) {
       $('#mute i').removeClass('fa-volume-off').removeClass('fa-volume-up').addClass('fa-volume-down');
     } else {
@@ -312,7 +325,7 @@ $("#mute").click(function() {
   mute();
 });
 
-// Prevents volume bar from hiding itself (on mouseout) if user is click/dragging volume bar.
+// Prevents volume bar from hiding itself (on mouseout) if user is actively click/dragging volume bar.
 var isDown = false;
 $('.audio-control .right').on('mousedown', function(){
   isDown = true;
