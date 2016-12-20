@@ -93,7 +93,7 @@ ul#playlist li .right {
 .song:hover {
   
 }
-.current-time {
+#current-time {
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -103,7 +103,7 @@ ul#playlist li .right {
     padding-right: 5px;
     z-index: 200;
 }
-.current-song {
+#current-song {
     position: absolute;
     left: 0px;
     bottom: 0px;
