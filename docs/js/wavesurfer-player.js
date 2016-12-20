@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var songButtons = document.querySelectorAll('.play-song'),
       i;
-    for (i = 0; i < songPlayPause.length; i++) {
+    for (i = 0; i < songButtons.length; i++) {
       songButtons[i].classList.remove('fa-pause');
       songButtons[i].classList.add('fa-play');
     }
