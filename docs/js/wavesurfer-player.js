@@ -193,8 +193,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Replace play / pause icons
     document.getElementById('play').style.display = '';
     document.getElementById('pause').style.display = 'none';
-    document.querySelectorAll('.play-song')[currentTrack].classList.remove('fa-pause');
-    document.querySelectorAll('.play-song')[currentTrack].classList.add('fa-play');
+
+    var songButtons = document.querySelectorAll('.play-song'),
+      i;
+    for (i = 0; i < songPlayPause.length; i++) {
+      songButtons[i].classList.remove('fa-pause');
+      songButtons[i].classList.add('fa-play');
+    }
     clearInterval(currentTime);
   });
 
