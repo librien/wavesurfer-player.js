@@ -361,7 +361,7 @@ volumeControl.addEventListener('mousedown', function() {
   isDown = true;
 });
 volumeControl.addEventListener('mouseup', function() {
-  isDown = true;
+  isDown = false;
 });
 
 function showVolume(){
