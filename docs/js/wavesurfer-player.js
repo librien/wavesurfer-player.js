@@ -379,7 +379,7 @@ volumeControl.addEventListener('mouseover', showVolume);
 volumeControl.addEventListener('mouseout', hideVolume);
 
 // Prevents volume bar from showing on mobile tap (hopefully) and mutes
-volumeControl.addEventListener('touchstart', function() {
+volumeControl.addEventListener('touchstart', function(e) {
   e.preventDefault();
   e.stopPropagation();
   mute();
