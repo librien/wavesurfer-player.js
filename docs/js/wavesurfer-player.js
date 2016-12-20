@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Get the page's current title, will append audio information to it
   pageTitle = document.title;
 
-  var playPause = $('#playPause');
-  playPause.click(function() {
+  var playPause = document.getElementById('play-pause');
+  playPause.addEventListener('click', function() {
     wavesurfer.playPause();
   });
 
@@ -62,39 +62,49 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  var songs = $('#playlist li.song-row');
+  var songNodeList = document.querySelectorAll('.song-row');
+  var songs = [];
+
+  // Convert nodeList to array
+  function nodetoArray(nodeList, nodeArray) {
+    for (var i = 0; i < nodeList.length; ++i) {
+      nodeArray[i] = nodeList[i];
+    }
+    return nodeArray;
+  }
+
+  songs = nodetoArray(songNodeList, songs);
+
   var currentTrack = 0;
-  var isShuffle = false;
   var nextSong = false;
-  $('#shuffle').click(function() {
+  var isShuffle = false;
+  document.getElementById('shuffle').addEventListener('click', function() {
     if (isShuffle) {
       isShuffle = false;
 
       //Reset order of playlist to unshuffle
-      songs = $('#playlist li.song-row');
+      songs = nodetoArray(songNodeList, songs);
 
       //Set next song in unshuffled playlist
       nextSong = (getCurrentTrackIndex(currentTitle) + 1);
-
-      $(this).css({'color': '#333'});
+      this.style.color = '#333';
     }
     else {
       isShuffle = true;
-      $(this).css({'color': '#3370a7'});
-      songs = $('#playlist li.song-row');
+      this.style.color = '#3370a7';
       shuffle(songs);
     }
   });
 
   var isRepeat = false;
-  $('#repeat').click(function() {
+  document.getElementById('repeat').addEventListener('click', function() {
     if (isRepeat) {
       isRepeat = false;
-      $(this).css({'color': '#333'});
+      this.style.color = '#333';
     }
     else {
       isRepeat = true;
-      $(this).css({'color': '#3370a7'});
+      this.style.color = '#3370a7';
     }
   });
 
@@ -126,14 +136,14 @@ document.addEventListener('DOMContentLoaded', function () {
   // Sets the elapsed time for current song
   function updateCurrentTime() {
     elapsedSeconds++;
-    $('.current-time').text(getTimeString(elapsedSeconds));
+    document.getElementById('current-time').textContent = getTimeString(elapsedSeconds) + ' / ' + currentSongLength;
   }
 
   // Resets the elapsed time for current song
   function clearTimer() {
     clearInterval(currentTime);
-    $('.current-time').html('00:00');
-    $('.current-song').html('Stopped');
+    document.getElementById('current-time').textContent = '00:00';
+    document.getElementById('current-song').textContent = 'Stopped';
     elapsedSeconds = 0;
   }
 
@@ -147,17 +157,19 @@ document.addEventListener('DOMContentLoaded', function () {
   wavesurfer.on('play', function () {
 
     // Switch between play and pause icon in main audio-control class
-    $('#play').hide();
-    $('#pause').show();
-
+    document.getElementById('play').style.display = 'none';
+    document.getElementById('pause').style.display = '';
     // Set title to include current song name
     currentTitle = songs[currentTrack].getAttribute('data-title');
+    currentSongLength = getTimeString(songs[currentTrack].getAttribute('data-length'));
     title =  currentTitle + ' \u2013 ' + pageTitle;
     document.title = title;
 
     // Switch between play and pause icon on current song row
-    var currentIcon = $(songs[currentTrack]).find('.play-song');
-    $(currentIcon).removeClass('fa-play').addClass('fa-pause');
+    var currentIcon = songs[currentTrack].querySelector('.play-song');
+
+    currentIcon.classList.add('fa-pause');
+    currentIcon.classList.remove('fa-play');
 
     if (wavesurfer.isPlaying() == true) {
 
@@ -167,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Start timer for this song
       elapsedSeconds = wavesurfer.getCurrentTime();
       currentTime = setInterval(updateCurrentTime,1000);
-      $('.current-song').html('Now Playing: ' + currentTitle);
+      document.getElementById('current-song').textContent = ('Now Playing: ' + currentTitle);
     }
   });
 
@@ -179,13 +191,14 @@ document.addEventListener('DOMContentLoaded', function () {
   wavesurfer.on('pause', function () {
 
     // Replace play / pause icons
-    $('#play').show();
-    $('#pause').hide();
-    $('.play-song').removeClass('fa-pause').addClass('fa-play');
+    document.getElementById('play').style.display = '';
+    document.getElementById('pause').style.display = 'none';
+    document.querySelectorAll('.play-song')[currentTrack].classList.remove('fa-pause');
+    document.querySelectorAll('.play-song')[currentTrack].classList.add('fa-play');
     clearInterval(currentTime);
   });
 
-  $("#play").click(function() {
+  document.getElementById('play').addEventListener('click', function() {
     playNow();
   });
 
@@ -194,24 +207,26 @@ document.addEventListener('DOMContentLoaded', function () {
     currentTrack = index;
     wavesurfer.load(songs[currentTrack].getAttribute('data-src'));
   };
-
   // Plays a track when clicked in the playlist, pauses if user clicks on currently playing track
-  $('ul#playlist li').click(function() {
-    if ($(this).attr('data-src') === songs[currentTrack].getAttribute('data-src')) {
+  for (var i = 0; i < songs.length; i++) {
+    songs[i].addEventListener('click', function(event) {
 
-      // Stop timer at current time
-      clearInterval(currentTime);
+      if (this.getAttribute('data-src') === songs[currentTrack].getAttribute('data-src')) {
 
-      //Toggle play / pause if clicked on current song
-      wavesurfer.playPause();
-    }
-    else {
-      var songTitle = this.getAttribute('data-title');
-      var songIndex = getCurrentTrackIndex(songTitle);
-      setCurrentSong(songIndex);
-      playNow();
-    }
-  });
+        // Stop timer at current time
+        clearInterval(currentTime);
+
+        //Toggle play / pause if clicked on current song
+        wavesurfer.playPause();
+      }
+      else {
+        var songTitle = this.getAttribute('data-title');
+        var songIndex = getCurrentTrackIndex(songTitle);
+        setCurrentSong(songIndex);
+        playNow();
+      }
+    });
+  }
 
   function gotoNextSong(){
     if (!isRepeat) {
@@ -248,13 +263,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Go to next track when next button is clicked
-  $("#next").click(function() {
+  document.getElementById('next').addEventListener('click', function() {
     gotoNextSong();
   });
 
   // Go to previous track when previous button is clicked
-  $("#previous").click(function() {
-    if (elapsedSeconds < 1) {
+  document.getElementById('previous').addEventListener('click', function() {
+    if (elapsedSeconds < 2) {
       if (currentTrack > 0) {
         setCurrentSong((currentTrack - 1) % songs.length);
       }
@@ -273,10 +288,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Stop on click
-  $("#stop").click(function() {
+  document.getElementById('stop').addEventListener('click', function() {
     wavesurfer.stop();
     clearTimer();
-    $('.play-song').addClass('fa-play').removeClass('fa-pause');
+    document.querySelectorAll('.play-song')[currentTrack].classList.remove('fa-pause');
+    document.querySelectorAll('.play-song')[currentTrack].classList.add('fa-play');
     title = 'Stopped \u2013 ' + pageTitle;
     document.title = title;
   });
@@ -292,8 +308,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // TODO: Update whenever fontawesome puts out a mute icon instead of volume-off icon.
 var percentage = 100;
+var volumeBar = document.querySelector('.volume-bar');
 var muted = false;
-
+var muteIcon = document.querySelector('#mute i');
 function mute() {
   if (muted == false) {
     wavesurfer.toggleMute();
@@ -303,8 +320,10 @@ function mute() {
     oldpercentage = percentage;
 
     percentage = 0;
-    $('#mute i').removeClass('fa-volume-up').removeClass('fa-volume-down').addClass('fa-volume-off');
-    $('.volumeBar').css('width', 0 + '%');
+    muteIcon.classList.remove('fa-volume-up');
+    muteIcon.classList.remove('fa-volume-down');
+    muteIcon.classList.add('fa-volume-off');
+    document.querySelector('.volume-bar').style.width = 0 + '%';
   }
   else {
     wavesurfer.toggleMute();
@@ -312,63 +331,77 @@ function mute() {
     percentage = oldpercentage;
 
     if ((percentage < 70) && (percentage > 0)) {
-      $('#mute i').removeClass('fa-volume-off').removeClass('fa-volume-up').addClass('fa-volume-down');
+      muteIcon.classList.remove('fa-volume-up');
+      muteIcon.classList.remove('fa-volume-off');
+      muteIcon.classList.add('fa-volume-down');
     } else {
-      $('#mute i').removeClass('fa-volume-off').removeClass('fa-volume-down').addClass('fa-volume-up');
+      muteIcon.classList.remove('fa-volume-off');
+      muteIcon.classList.remove('fa-volume-down');
+      muteIcon.classList.add('fa-volume-up');
     }
-    $('.volumeBar').css('width', percentage + '%');
+    document.querySelector('.volume-bar').style.width = percentage + '%';
   }
 }
 
 // Toggle mute on click
-$("#mute").click(function() {
+document.getElementById('mute').addEventListener('click', function() {
   mute();
 });
 
+var volumeControl = document.getElementById('volume-control');
 // Prevents volume bar from hiding itself (on mouseout) if user is actively click/dragging volume bar.
 var isDown = false;
-$('.audio-control .right').on('mousedown', function(){
+
+volumeControl.addEventListener('mousedown', function() {
   isDown = true;
-}).on('mouseup', function(){
-  isDown = false;
+});
+volumeControl.addEventListener('mouseup', function() {
+  isDown = true;
 });
 
 function showVolume(){
-  $('.volume').fadeIn();
-  $('.volumeBar').fadeIn();
+  document.querySelector('.volume').style.opacity = 1;
 }
 
 function hideVolume(){
   if (isDown == false) {
-    $('.volume').fadeOut();
-    $('.volumeBar').fadeOut();
+    document.querySelector('.volume').style.opacity = 0;
   }
 }
 
 // Show volume bar on hover
-$('.audio-control .right').hover(showVolume, hideVolume);
+volumeControl.addEventListener('mouseover', showVolume);
+volumeControl.addEventListener('mouseout', hideVolume);
 
 // Prevents volume bar from showing on mobile tap (hopefully) and mutes
-$('.audio-control .right').on('touchstart', function(e) {
+volumeControl.addEventListener('touchstart', function() {
   e.preventDefault();
   e.stopPropagation();
   mute();
 });
 
 // Listen for scroll, call to adjust volume up or down
-$(function() {
-  $('.audio-control .right').bind('wheel DOMMouseScroll', function (event) {
-     if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
-       scrollVolume(5);
-     }
-     else {
-       scrollVolume(-5);
-     }
+if (volumeControl.addEventListener) {
+	// IE9, Chrome, Safari, Opera
+	volumeControl.addEventListener("mousewheel", MouseWheelHandler, false);
+	// Firefox
+	volumeControl.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
+}
+// IE 6/7/8
+else volumeControl.attachEvent("onmousewheel", MouseWheelHandler);
+function MouseWheelHandler(e) {
+  var e = window.event || e; // old IE support
+  var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+  if (delta > 0 /*|| e.detail < 0*/) {
+    scrollVolume(5);
+  }
+  else {
+    scrollVolume(-5);
+  }
 
-     // Prevent page from scrolling when controlling volume bar by mouse wheel
-     return false;
-  });
-});
+  // Prevent page from scrolling when controlling volume bar by mouse wheel
+  e.preventDefault();
+}
 
 function scrollVolume(amount) {
   percentage = percentage + amount;
@@ -378,33 +411,36 @@ function scrollVolume(amount) {
 }
 
 var volumeDrag = false;
-$('.volume').on('mousedown', function (e) {
+
+document.querySelector('.volume').addEventListener('mousedown', function (e) {
   volumeDrag = true;
   muted = false;
-  $('#mute i').removeClass('fa-volume-off').addClass('fa-volume-down');
   updateVolume(e.pageX);
 });
 
-$(document).on('mouseup', function (e) {
+document.addEventListener('mouseup', function(e) {
   if (volumeDrag) {
     volumeDrag = false;
     updateVolume(e.pageX);
   }
 });
 
-$(document).on('mousemove', function (e) {
+document.addEventListener('mousemove', function(e) {
   if (volumeDrag) {
     updateVolume(e.pageX);
   }
 });
 
 var updateVolume = function (x, vol) {
-  var volume = $('.volume');
+  var volume = document.querySelector('.volume');
   if (vol) {
     percentage = vol * 100;
   } else {
-    var position = x - volume.offset().left;
-    percentage = 100 * position / volume.width();
+    var rect = volume.getBoundingClientRect();
+    var offsetLeft = rect.left + document.body.scrollLeft;
+    var position = x - offsetLeft;
+    width = parseInt(window.getComputedStyle(volume).getPropertyValue('width'),10);
+    percentage = 100 * position / width;
   }
   if (percentage > 100) {
     percentage = 100;
@@ -417,15 +453,21 @@ var updateVolume = function (x, vol) {
 
 function setVolume(percentage) {
   // Update volume bar css and player volume
-  $('.volumeBar').css('width', percentage + '%');
+  volumeBar.style.width = percentage + '%';
   wavesurfer.setVolume(percentage / 100);
 
   // Change sound icon based on volume
   if (percentage == 0) {
-    $('#mute i').removeClass('fa-volume-up').removeClass('fa-volume-down').addClass('fa-volume-off');
+    muteIcon.classList.remove('fa-volume-up');
+    muteIcon.classList.remove('fa-volume-down');
+    muteIcon.classList.add('fa-volume-off');
   } else if ((percentage < 70) && (percentage > 0)) {
-    $('#mute i').removeClass('fa-volume-off').removeClass('fa-volume-up').addClass('fa-volume-down');
+    muteIcon.classList.remove('fa-volume-up');
+    muteIcon.classList.remove('fa-volume-off');
+    muteIcon.classList.add('fa-volume-down');
   } else {
-    $('#mute i').removeClass('fa-volume-off').removeClass('fa-volume-down').addClass('fa-volume-up');
+    muteIcon.classList.remove('fa-volume-down');
+    muteIcon.classList.remove('fa-volume-off');
+    muteIcon.classList.add('fa-volume-up');
   }
 }
