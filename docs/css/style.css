@@ -130,8 +130,7 @@ ul#playlist li .right {
 .right .fa-ellipsis-v {
     padding-right: 10px;
 }
- .volume {
-    display:none;
+.volume {
     position:absolute;
     cursor:pointer;
     width: 200px;
@@ -139,9 +138,10 @@ ul#playlist li .right {
     right: 50px;
     height:20px;
     background-color:rgba(0,0,0,.25);
+    opacity: 0;
+    transition: opacity 1s;
 }
-.volumeBar {
-    display:none;
+.volume-bar {
     display:block;
     height:20px;
     position:absolute;
