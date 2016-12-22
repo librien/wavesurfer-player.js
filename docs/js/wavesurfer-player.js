@@ -152,13 +152,15 @@ document.addEventListener('DOMContentLoaded', function () {
       wavesurfer.play();
     });
   };
-
+  
+  var playPauseIcon = document.getElementById('play-pause').querySelector('.fa');
   // Toggle play/pause
   wavesurfer.on('play', function () {
 
     // Switch between play and pause icon in main audio-control class
-    document.getElementById('play').style.display = 'none';
-    document.getElementById('pause').style.display = '';
+    playPauseIcon.classList.remove('fa-play');
+    playPauseIcon.classList.add('fa-pause');
+
     // Set title to include current song name
     currentTitle = songs[currentTrack].getAttribute('data-title');
     currentSongLength = getTimeString(songs[currentTrack].getAttribute('data-length'));
@@ -166,10 +168,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.title = title;
 
     // Switch between play and pause icon on current song row
-    var currentIcon = songs[currentTrack].querySelector('.play-song');
+    var currentSongIcon = songs[currentTrack].querySelector('.play-song');
 
-    currentIcon.classList.add('fa-pause');
-    currentIcon.classList.remove('fa-play');
+    currentSongIcon.classList.add('fa-pause');
+    currentSongIcon.classList.remove('fa-play');
 
     if (wavesurfer.isPlaying() == true) {
 
@@ -191,8 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
   wavesurfer.on('pause', function () {
 
     // Replace play / pause icons
-    document.getElementById('play').style.display = '';
-    document.getElementById('pause').style.display = 'none';
+    playPauseIcon.classList.remove('fa-pause');
+    playPauseIcon.classList.add('fa-play');
 
     var songButtons = document.querySelectorAll('.play-song'),
       i;
@@ -203,8 +205,10 @@ document.addEventListener('DOMContentLoaded', function () {
     clearInterval(currentTime);
   });
 
-  document.getElementById('play').addEventListener('click', function() {
-    playNow();
+  document.getElementById('play-pause').addEventListener('click', function() {
+    if (wavesurfer.isPlaying() == false) {
+      playNow();
+    }
   });
 
   // Load a track by index and highlight the corresponding link
