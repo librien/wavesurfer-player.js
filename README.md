@@ -7,7 +7,12 @@ Wavesurfer-player.js is an HTML5 / Javascript audio player and playlist using ht
 - TBD
 
 ## Features
-- TBD
+- Previous Song, Next Song, Play/Pause, Stop
+- Current Time / Song Duration
+- Repeat
+- Shuffle
+- Volume Slider
+- Mute
 
 ## Additional Information
 - TBD
