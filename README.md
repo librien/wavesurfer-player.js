@@ -1,7 +1,7 @@
 **Live Demo:** https://kmodoio.github.io/wavesurfer-player.js/ 
 
 # wavesurfer-player.js
-Wavesurfer-player.js is an HTML5 / Javascript audio player and playlist using https://wavesurfer-js.org waveform visualization.
+Wavesurfer-player.js is an HTML5 / Javascript audio player and playlist using https://wavesurfer-js.org waveform visualization.  Uses Font-Awesome icons for media buttons.
 
 ## Instructions
 - TBD
