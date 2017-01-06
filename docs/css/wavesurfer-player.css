@@ -8,91 +8,102 @@ body {
 .container {
     background-color: none;
 }
-.music {
+#music {
+    margin-top: -15px;
     border: 1px rgba(0,0,0,.25);
 }
+
 .audio-control {
     background-color: rgba(255,255,255,0.15);
 
 }
+
 .audio-control>div:hover {
     cursor: pointer;
 }
+
 .left {
     display: inline;
+    z-index: 9;
 }
+
 .right {
     text-align: right;
     position: relative;
     float: right;
     display: inline;
 }
+
 .audio-control .button {
     display: inline-block;
     background: none;
     border: none;
-    padding: 15px;
+    padding: 15px; /*change to 15px for larger width*/
 }
-.playlist { 
+
+.audio-control .left .button {
+    padding: 15px 10px 15px 10px;
+}
+
+.audio-control .right .button .fa-fw {
+    text-align: left;
+}
+
+.playlist {
     overflow-y: auto;
 }
+
 ul#playlist {
     list-style: none;
     margin-top: 0px;
     margin-bottom: 0px;
-    /*overflow-y: scroll;*/
 }
-ul#playlist li {
-    /*background-color: rgba(64, 170, 236, .05);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;*/
-}
+
 ul#playlist li:hover {
     background-color: rgba(0,0,0,0.05);
     cursor: pointer;
 }
+
 ul#playlist li .left {
     display: inline;
 }
+
 ul#playlist li div .button {
     background: none;
     border: none;
     padding: 15px;
-    padding-left: 30px;
 }
+
 ul#playlist li .middle {
     display: inline;
     height: 100%;
 }
+
 ul#playlist li .right {
     display: inline;
 }
+
 #waveform {
     position: relative;
     background-color: rgba(0,0,0,0.05);
 }
-.play-song {
-    
-}
+
 .song {
     display: inline-block;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 50%;
+    max-width: 55%;
     vertical-align: middle;
 }
+
 .length {
     padding-left: 15px;
     padding-right: 15px;
-    color: #666666; 
+    color: #666666;
     vertical-align: middle;
 }
-.song:hover {
-  
-}
+
 #current-time {
     position: absolute;
     right: 0px;
@@ -103,6 +114,7 @@ ul#playlist li .right {
     padding-right: 5px;
     z-index: 200;
 }
+
 #current-song {
     position: absolute;
     left: 0px;
@@ -115,34 +127,47 @@ ul#playlist li .right {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 70%;
+    max-width: 75%;
 }
+
 #playlist #mute {
     position: absolute;
     right: 0;
 }
+
 .album-name {
     margin: 10px;
     font-family: 'Lato', sans-serif;
     color: rgb(30, 30, 30);
     font-size: 20px;
 }
+
 .right .fa-ellipsis-v {
     padding-right: 10px;
 }
-.volume {
+
+ .volume {
     position:absolute;
     cursor:pointer;
     width: 200px;
-    top: 12px;
+    top: 14px;
     right: 50px;
     height:20px;
     background-color:rgba(0,0,0,.25);
     opacity: 0;
     transition: opacity 1s;
+    z-index: 8;
 }
+
+@media (max-width: 640px) {
+  .volume {
+    display: none;
+  }
+}
+
 .volume-bar {
-    display:block;
+    display: block;
+    opacity: 1;
     height:20px;
     position:absolute;
     top:0;
@@ -150,7 +175,9 @@ ul#playlist li .right {
     background-color:rgba(51, 122, 183, 0.35);
     z-index:10;
     width: 100%;
+    transition: opacity 1s;
 }
+
 .volume3 {
     width: 0;
     height: 0;
@@ -161,3 +188,68 @@ ul#playlist li .right {
     _border-color: #000000 #000000 #007bff #000000;
     _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
 }
+/**
+* CODE PAGE
+*/
+.code {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.project-overlay {
+  background-color: rgba(5, 13, 20,.35);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-overlay.faded {
+  background-color: rgba(11, 26, 40,.75);
+  transition: background-color 400ms linear;
+    -webkit-transition: background-color 400ms linear;
+
+}
+.project-img {
+
+}
+.project-title a {
+  border: 1px solid #333;
+  font-size: .9em;
+  bottom: 0px;
+  left: 0px;
+  color: #333;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.project-info {
+  max-width: 50%;
+}
+.project-links {
+  display: none;
+  text-align: center;
+}
+.project-links a {
+  border: 1px solid #fff;
+  font-size: 1.25em;
+  color: #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 2px;
+}
+.project-links a:hover {
+  background-color: rgba(255,255,255,.25);
+}
+.project-description {
+  text-align: center;
+  margin: 5px;
+  color: #fff; !important
+  font-size: 1em;
+  display: none;
+}
+.disabled {
+  pointer-events:none;
+}
+
