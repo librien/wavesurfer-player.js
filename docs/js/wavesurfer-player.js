@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
       playNow();
     });
   });
-	
+
   // Toggle play/pause
   wavesurfer.on('play', function () {
     playInit = 1;
@@ -205,6 +205,8 @@ document.addEventListener('DOMContentLoaded', function () {
       clearTimer();
 
       // Start timer for this song
+      elapsedSeconds = -1; //Need 1 second offset for the timer
+      currentTime = updateCurrentTime();
       elapsedSeconds = wavesurfer.getCurrentTime();
       currentTime = setInterval(updateCurrentTime,1000);
       document.getElementById('current-song').textContent = ('Now Playing: ' + currentTitle);
