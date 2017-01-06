@@ -168,20 +168,18 @@ document.addEventListener('DOMContentLoaded', function () {
   wavesurfer.on('loading', function(status) {
     document.getElementById('current-song').textContent = 'Loading ' + status + '%';
     document.getElementById('wavesurfer-player').classList.add('disabled');
-    if (status == 100) {
+    wavesurfer.on('ready', function() {
       if (playInit == 0) {
         document.getElementById('current-song').textContent = 'Ready';
       }
       else {
         document.getElementById('current-song').textContent = 'Stopped';
       }
-    }
-    wavesurfer.on('ready', function() {
       document.getElementById('wavesurfer-player').classList.remove("disabled");
       playNow();
     });
   });
-
+	
   // Toggle play/pause
   wavesurfer.on('play', function () {
     playInit = 1;
