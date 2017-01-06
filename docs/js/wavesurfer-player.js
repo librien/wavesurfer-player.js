@@ -75,9 +75,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   songs = nodetoArray(songNodeList, songs);
 
+  var playInit = 0;
   var currentTrack = 0;
   var nextSong = false;
   var isShuffle = false;
+  var isRepeat = false;
+  var playPauseIcon = document.getElementById('play-pause').querySelector('.fa');
+
   document.getElementById('shuffle').addEventListener('click', function() {
     if (isShuffle) {
       isShuffle = false;
@@ -86,17 +90,25 @@ document.addEventListener('DOMContentLoaded', function () {
       songs = nodetoArray(songNodeList, songs);
 
       //Set next song in unshuffled playlist
-      nextSong = (getCurrentTrackIndex(currentTitle) + 1);
+      if (typeof currentTitle !== 'undefined') {
+        nextSong = (getCurrentTrackIndex(currentTitle) + 1);
+      }
       this.style.color = '#333';
     }
     else {
       isShuffle = true;
       this.style.color = '#3370a7';
       shuffle(songs);
+
+      // Only reset current track if play hasn't been initialized.
+      if (playInit == 0) {
+        newTrack = Math.floor(Math.random()*songs.length);
+        setCurrentSong(newTrack);
+        playPauseIcon.classList.add("disabled");
+      }
     }
   });
 
-  var isRepeat = false;
   document.getElementById('repeat').addEventListener('click', function() {
     if (isRepeat) {
       isRepeat = false;
@@ -152,11 +164,27 @@ document.addEventListener('DOMContentLoaded', function () {
       wavesurfer.play();
     });
   };
-  
-  var playPauseIcon = document.getElementById('play-pause').querySelector('.fa');
+
+  wavesurfer.on('loading', function(status) {
+    document.getElementById('current-song').textContent = 'Loading ' + status + '%';
+    document.getElementById('wavesurfer-player').classList.add('disabled');
+    if (status == 100) {
+      if (playInit == 0) {
+        document.getElementById('current-song').textContent = 'Ready';
+      }
+      else {
+        document.getElementById('current-song').textContent = 'Stopped';
+      }
+    }
+    wavesurfer.on('ready', function() {
+      document.getElementById('wavesurfer-player').classList.remove("disabled");
+      playNow();
+    });
+  });
+
   // Toggle play/pause
   wavesurfer.on('play', function () {
-
+    playInit = 1;
     // Switch between play and pause icon in main audio-control class
     playPauseIcon.classList.remove('fa-play');
     playPauseIcon.classList.add('fa-pause');
