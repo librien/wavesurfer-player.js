@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
     *wave.style.width = status+'%';
     */
     document.getElementById('play-pause').classList.add('disabled');
-    if (status = 100) {
+    if (status == 100) {
       document.getElementById('current-song').textContent = 'Generating waveform...';
     }
     wavesurfer.on('ready', function() {
