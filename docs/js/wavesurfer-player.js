@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', function () {
 * Playback Controls
 */
 
-var elapsedSeconds = 0;
+
 document.addEventListener('DOMContentLoaded', function () {
 
   // 100% volume to start
   wavesurfer.setVolume(1);
 
   var currentTime;
-
+  var elapsedSeconds = 0;
   // Get the page's current title, will append audio information to it
   pageTitle = document.title;
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         return false;
     }
-};
+  };
 
   function getCurrentTrackIndex(currentTitle) {
     songIndex = Array.from(songs).findIndex(item => item.dataset.title === currentTitle);
@@ -167,15 +167,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   wavesurfer.on('loading', function(status) {
     document.getElementById('current-song').textContent = 'Loading ' + status + '%';
-    document.getElementById('wavesurfer-player').classList.add('disabled');
+    /** Need to think of a better way to do this
+    *wave = document.getElementById('waveform');
+    *wave.style.width = status+'%';
+    */
+    document.getElementById('play-pause').classList.add('disabled');
     wavesurfer.on('ready', function() {
       if (playInit == 0) {
         document.getElementById('current-song').textContent = 'Ready';
       }
       else {
-        document.getElementById('current-song').textContent = 'Stopped';
+        //document.getElementById('current-song').textContent = 'Stopped';
       }
-      document.getElementById('wavesurfer-player').classList.remove("disabled");
+      document.getElementById('play-pause').classList.remove("disabled");
       playNow();
     });
   });
@@ -205,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
       clearTimer();
 
       // Start timer for this song
-      elapsedSeconds = -1; //Need 1 second offset for the timer
+      elapsedSeconds = -1; // Need 1 second offset for the timer (not sure why)
       currentTime = updateCurrentTime();
       elapsedSeconds = wavesurfer.getCurrentTime();
       currentTime = setInterval(updateCurrentTime,1000);
@@ -265,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Finds next track, used especially when shuffle is turned off 
   function gotoNextSong(){
     if (!isRepeat) {
       if (((currentTrack + 1) % songs.length) > 0) {
@@ -294,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   }
+  
   // Go to the next track on finish
   wavesurfer.on('finish', function () {
     gotoNextSong();
