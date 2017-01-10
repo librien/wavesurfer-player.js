@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var currentTime;
   var elapsedSeconds = 0;
+
   // Get the page's current title, will append audio information to it
   pageTitle = document.title;
 
@@ -172,6 +173,9 @@ document.addEventListener('DOMContentLoaded', function () {
     *wave.style.width = status+'%';
     */
     document.getElementById('play-pause').classList.add('disabled');
+    if (status = 100) {
+      document.getElementById('current-song').textContent = 'Generating waveform...';
+    }
     wavesurfer.on('ready', function() {
       if (playInit == 0) {
         document.getElementById('current-song').textContent = 'Ready';
@@ -269,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Finds next track, used especially when shuffle is turned off 
+  // Finds next track, used especially when shuffle is turned off
   function gotoNextSong(){
     if (!isRepeat) {
       if (((currentTrack + 1) % songs.length) > 0) {
@@ -299,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   }
-  
+
   // Go to the next track on finish
   wavesurfer.on('finish', function () {
     gotoNextSong();
