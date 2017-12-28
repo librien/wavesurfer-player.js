@@ -21,10 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-/**
-* Playback Controls
-*/
-
+/*
+ * Playback Controls
+ */
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -37,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Get the page's current title, will append audio information to it
   pageTitle = document.title;
 
+  // Begin playback when playPause button is clicked
   var playPause = document.getElementById('play-pause');
   playPause.addEventListener('click', function() {
     wavesurfer.playPause();
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   function getCurrentTrackIndex(currentTitle) {
+    // TODO: Fix incorrect title issue when rapidly switching between tracks.
     songIndex = Array.from(songs).findIndex(item => item.dataset.title === currentTitle);
     return songIndex;
   }
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Gets list of songs from css class "song-row"
   var songNodeList = document.querySelectorAll('.song-row');
   var songs = [];
 
@@ -164,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
     wavesurfer.on('ready', function () {
       wavesurfer.play();
     });
-  };
+  }
 
   wavesurfer.on('loading', function(status) {
     document.getElementById('current-song').textContent = 'Loading ' + status + '%';
@@ -174,10 +176,10 @@ document.addEventListener('DOMContentLoaded', function () {
     */
     document.getElementById('play-pause').classList.add('disabled');
     if (status == 100) {
-      document.getElementById('current-song').textContent = 'Generating waveform...';
+      document.getElementById('current-song').textContent = 'Generating Waveform';
     }
     wavesurfer.on('ready', function() {
-      if (playInit == 0) {
+      if (playInit === 0) {
         document.getElementById('current-song').textContent = 'Ready';
       }
       else {
@@ -207,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
     currentSongIcon.classList.add('fa-pause');
     currentSongIcon.classList.remove('fa-play');
 
-    if (wavesurfer.isPlaying() == true) {
+    if (wavesurfer.isPlaying() === true) {
 
       // Ensure timer resets to 0
       clearTimer();
@@ -218,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
       elapsedSeconds = wavesurfer.getCurrentTime();
       currentTime = setInterval(updateCurrentTime,1000);
       document.getElementById('current-song').textContent = ('Now Playing: ' + currentTitle);
+      document.getElementById('current-song').classList.remove('blink');
     }
   });
 
@@ -231,7 +234,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Replace play / pause icons
     playPauseIcon.classList.remove('fa-pause');
     playPauseIcon.classList.add('fa-play');
-
+    document.getElementById('current-song').classList.add('blink');
+    document.getElementById('current-song').textContent = ('Paused: ' + currentTitle);
     var songButtons = document.querySelectorAll('.play-song'),
       i;
     for (i = 0; i < songButtons.length; i++) {
@@ -242,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.getElementById('play-pause').addEventListener('click', function() {
-    if (wavesurfer.isPlaying() == false) {
+    if (wavesurfer.isPlaying() === false) {
       playNow();
     }
   });
@@ -344,15 +348,37 @@ document.addEventListener('DOMContentLoaded', function () {
     document.title = title;
   });
 
-  // Load the first track
-  setCurrentSong(currentTrack);
+  
+  // Load the first track if no url specified, otherwise load that song
+  function getJsonFromUrl() {
+    var query = location.search.substr(1);
+    var result = {};
+    query.split("?").forEach(function(part) {
+      var item = part.split("=");
+      result[item[0]] = decodeURIComponent(item[1]);
+    });
+    return result;
+  }
+
+  url = getJsonFromUrl();
+  songFromUrl = document.querySelector("[data-slug='" + url.s + "']");
+  if (songFromUrl) {
+    var songFromUrl = songFromUrl.getAttribute('data-title');
+    trackIndex = getCurrentTrackIndex(songFromUrl);
+    setCurrentSong(trackIndex);
+    wavesurfer.on('ready', function () {
+      wavesurfer.play();
+    });
+  }
+  else {
+    setCurrentSong(currentTrack);
+  }
 
 });
 
-/**
-* Volume Controls
-*/
-
+/*
+ * Volume Controls
+ */
 // TODO: Update whenever fontawesome puts out a mute icon instead of volume-off icon.
 var percentage = 100;
 var volumeBar = document.querySelector('.volume-bar');
